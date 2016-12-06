@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en" ng-app="reminder">
+<head>
+	<meta charset="UTF-8" />
+	<title>icloud</title>
+
+	<script type="text/javascript" src='js/angular.js'></script>
+		<script type="text/javascript" src='js/jquery.js'></script>
+	<link rel="stylesheet" href="css/index.css" />
+	<script src='js/index.js'></script>
+	<link rel="Shortcut Icon" href="img/pg1.ico">
+	
+</head>
+<body ng-controller="mainCtrl">
+	<!--左面-->
+	<div id='left'>
+			<div class='gao'>
+				<div class='zuo'>
+					<span class='image img'></span>
+					<div class='txsx'>
+						提醒事项
+						<div class='jt'>
+						
+						</div>
+					</div>
+					
+				</div>
+				<div class='you' ng-click="addlist()">
+					<img src="img/jia.jpg" alt="" />
+				</div>							
+			</div>
+		<div class='xia'>
+			<div class='biao'></div>
+			<div class='jihua'>已计划</div>
+			<div class='xian'></div>
+		</div>
+
+		<!--<div class='xiaxia' style="overflow:auto">
+			<div class='tx' ng-repeat="v in lists">
+				<div class='hdian {{v.theme}}'></div>
+				<div class='tx1'>{{v.name}}</div>
+				<div class='wx'></div>
+				<div class='xian1'></div>
+			</div>		
+		</div>-->
+		<div my-ul>
+			<div class='tx' ng-repeat="v in lists track by $index" ng-class='{active:cu===$index}'>
+				<div class='hdian {{v.theme}}'></div>
+				<div class='tx1'>{{v.name}}</div>
+				<div class='wx'></div>
+				<input type="width:50%" ng-model='v.name' ng-keyup='savelocal()' class='form_control' />
+				<div class='xian1'></div>
+			</div>
+		</div>
+	</div>	
+	
+	
+	
+	<!--右面-->
+	<div id='right'>
+		<div class="right_top">
+					<div class="right_input">
+						<div class="sousuo">
+							<i><img src="img/fdj.jpg" alt="" /></i>
+						</div>
+						<div class="text">							
+							<input type="text" value="搜索所有提醒" class="fied"/>
+						</div>
+						
+					</div>
+					<div class="name1">
+						<div class="name2">
+							<h2>
+								崔亚波
+								<i><img src="img/wh.jpg" alt="" /></i>
+							</h2>
+						</div>	
+					</div>
+		</div>
+		<div class="youxia">
+			<!--新列表-->
+				<div class="xuanxiang">
+						<h1 class="contain_fit {{lists[cu].theme}}">
+							{{lists[cu].name}}
+						</h1>
+						
+						<!--选择-选择-选择-选择-选择-选择-选择-选择-->
+						<div my-xx></div>						
+						<div class="btn {{lists[cu].theme}}">
+							选项
+							<div class="tan">
+								<div class='tan-jiao'></div>
+								<div class='tan-danjiao'></div>
+					            <div class="tan-box">
+					                <input type="text"  value="" ng-model='lists[cu].name' ng-keyup='savelocal()' class='{{lists[cu].theme}}' >
+					                <p>列表颜色</p>
+					                <ul >
+					                    <li ng-click="lists[cu].theme=v;savelocal()"  class="li {{v}}" ng-repeat='v in colors track by $index' ></li>                  
+					                    <!--<li  class='lii  {{v}}' ng-click="lists[cu].theme=v;savelocal()" ng-repeat='v in colors track by $index' ></li>-->                  
+					                </ul>
+					                <div class="btns">
+					                    <div ><a href="#" ng-click="del();save2local()">删除</a></div>
+					                    <div>
+					                        <a href="#" ng-click="cancel()">取消</a><a href="javascript:;" ng-click="cancel()">完成</a>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+						</div>
+					</div>
+				<!--已完成-->	
+				<div class="yiwanc">
+
+					<div class="yiwanc1" >
+						已完成 {{count()}}项
+						<div class='qingc {{lists[cu].theme}}' ng-click="clear();savelocal()" >清除已完成事项</div>
+					</div>
+					<div ng-if="v.state===1" class="com-lis" ng-repeat="v in lists[cu].todos">
+									<div class='span'ng-click="v.state=0;savelocal()">
+										 <span></span>
+									</div>
+									<p>{{v.name}}</p>
+									<div class='del'ng-click="clear();savelocal()">×</div>
+					</div>
+				</div>
+				<div class="weiwanc">
+					<div class='weiwanc1'>
+						未完成
+					</div>
+					<div ng-if="v.state===0" class="com-lis" ng-repeat="v in lists[cu].todos">
+									<span ng-click="v.state=1;savelocal()"></span>
+									<p>{{v.name}}</p>
+					</div>
+				</div>
+				<div class='today'>
+						<div class="today1">
+							今天
+						</div>
+				</div>
+				<div class='project'>
+					<div class="project1">			
+
+						<span ng-click="lists[cu].todos.push({name:value,state:0});value='';savelocal()"></span>
+						<input ng-model="value" type="text" class='xxmu' value='新项目'/>
+					</div>
+				</div>
+		</div>
+		
+	</div>
+</body>
+</html>
